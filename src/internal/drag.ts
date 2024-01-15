@@ -14,6 +14,9 @@ interface DragOptions {
 /** Begins listening for dragging. */
 export function drag(container: HTMLElement, options?: Partial<DragOptions>) {
   function move(pointerEvent: PointerEvent) {
+    if (pointerEvent.cancelable) {
+      pointerEvent.preventDefault();
+    }
     const dims = container.getBoundingClientRect();
     const defaultView = container.ownerDocument.defaultView!;
     const offsetX = dims.left + defaultView.scrollX;
@@ -35,7 +38,7 @@ export function drag(container: HTMLElement, options?: Partial<DragOptions>) {
     }
   }
 
-  document.addEventListener('pointermove', move, { passive: true });
+  document.addEventListener('pointermove', move);
   document.addEventListener('pointerup', stop);
 
   // If an initial event is set, trigger the first drag immediately

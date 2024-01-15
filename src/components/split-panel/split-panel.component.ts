@@ -112,6 +112,10 @@ export default class SlSplitPanel extends ShoelaceElement {
       event.preventDefault();
     }
 
+    // @ts-ignore
+    this.emit('sl-before-reposition');
+    this.divider.setPointerCapture(event.pointerId);
+
     drag(this, {
       onMove: (x, y) => {
         let newPositionInPixels = this.vertical ? y : x;
@@ -148,6 +152,11 @@ export default class SlSplitPanel extends ShoelaceElement {
         }
 
         this.position = clamp(this.pixelsToPercentage(newPositionInPixels), 0, 100);
+      },
+      onStop: () => {
+        this.divider.releasePointerCapture(event.pointerId);
+        // @ts-ignore
+        this.emit('sl-after-reposition');
       },
       initialEvent: event
     });
@@ -258,8 +267,7 @@ export default class SlSplitPanel extends ShoelaceElement {
         aria-valuemax="100"
         aria-label=${this.localize.term('resize')}
         @keydown=${this.handleKeyDown}
-        @mousedown=${this.handleDrag}
-        @touchstart=${this.handleDrag}
+        @pointerdown=${this.handleDrag}
       >
         <slot name="divider"></slot>
       </div>
