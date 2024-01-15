@@ -64,7 +64,7 @@ export default class SlTreeItem extends ShoelaceElement {
     'sl-spinner': SlSpinner
   };
 
-  static isTreeItem(node: Node) {
+  static isTreeItem(node: Node): node is SlTreeItem {
     return node instanceof Element && node.getAttribute('role') === 'treeitem';
   }
 

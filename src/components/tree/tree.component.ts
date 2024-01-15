@@ -157,8 +157,8 @@ export default class SlTree extends ShoelaceElement {
 
   private handleTreeChanged = (mutations: MutationRecord[]) => {
     for (const mutation of mutations) {
-      const addedNodes: SlTreeItem[] = [...mutation.addedNodes].filter(SlTreeItem.isTreeItem) as SlTreeItem[];
-      const removedNodes = [...mutation.removedNodes].filter(SlTreeItem.isTreeItem) as SlTreeItem[];
+      const addedNodes: SlTreeItem[] = [...mutation.addedNodes].filter(SlTreeItem.isTreeItem);
+      const removedNodes = [...mutation.removedNodes].filter(SlTreeItem.isTreeItem);
 
       addedNodes.forEach(this.initTreeItem);
 
