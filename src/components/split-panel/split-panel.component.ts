@@ -224,17 +224,8 @@ export default class SlSplitPanel extends ShoelaceElement {
     const gridTemplate = this.vertical ? 'gridTemplateRows' : 'gridTemplateColumns';
     const gridTemplateAlt = this.vertical ? 'gridTemplateColumns' : 'gridTemplateRows';
     const isRtl = this.localize.dir() === 'rtl';
-    const primary = `
-      clamp(
-        0%,
-        clamp(
-          var(--min),
-          ${this.position}% - var(--divider-width) / 2,
-          var(--max)
-        ),
-        calc(100% - var(--divider-width))
-      )
-    `;
+    const primaryInner = `clamp(var(--min), ${this.position}% - var(--divider-width) / 2, var(--max))`;
+    const primary = `clamp(0%, ${primaryInner}, calc(100% - var(--divider-width)))`;
     const secondary = 'auto';
 
     if (this.primary === 'end') {
