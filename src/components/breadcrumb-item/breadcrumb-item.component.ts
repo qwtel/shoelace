@@ -42,6 +42,8 @@ export default class SlBreadcrumbItem extends ShoelaceElement {
   /** The `rel` attribute to use on the link. Only used when `href` is set. */
   @property() rel = 'noreferrer noopener';
 
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
   render() {
     const isLink = this.href ? true : false;
 
@@ -66,12 +68,13 @@ export default class SlBreadcrumbItem extends ShoelaceElement {
                 href="${this.href!}"
                 target="${ifDefined(this.target ? this.target : undefined)}"
                 rel=${ifDefined(this.target ? this.rel : undefined)}
+                ?disabled=${this.disabled}
               >
                 <slot></slot>
               </a>
             `
           : html`
-              <button part="label" type="button" class="breadcrumb-item__label breadcrumb-item__label--button">
+              <button part="label" type="button" class="breadcrumb-item__label breadcrumb-item__label--button" ?disabled=${this.disabled}>
                 <slot></slot>
               </button>
             `}

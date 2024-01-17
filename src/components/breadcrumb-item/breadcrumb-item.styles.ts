@@ -32,19 +32,22 @@ export default css`
     border-radius: var(--sl-border-radius-medium);
     padding: 0;
     margin: 0;
-    cursor: pointer;
     transition: var(--sl-transition-fast) --color;
   }
 
-  :host(:not(:last-of-type)) .breadcrumb-item__label {
+  :host(:not([disabled])) .breadcrumb-item__label {
+    cursor: pointer;
+  }
+
+  :host(:not([disabled]):not(:last-of-type)) .breadcrumb-item__label {
     color: var(--sl-color-primary-600);
   }
 
-  :host(:not(:last-of-type)) .breadcrumb-item__label:hover {
+  :host(:not([disabled]):not(:last-of-type)) .breadcrumb-item__label:hover {
     color: var(--sl-color-primary-500);
   }
 
-  :host(:not(:last-of-type)) .breadcrumb-item__label:active {
+  :host(:not([disabled]):not(:last-of-type)) .breadcrumb-item__label:active {
     color: var(--sl-color-primary-600);
   }
 
