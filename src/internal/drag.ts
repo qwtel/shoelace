@@ -13,33 +13,34 @@ interface DragOptions {
 
 /** Begins listening for dragging. */
 export function drag(container: HTMLElement, options?: Partial<DragOptions>) {
-  function move(pointerEvent: PointerEvent) {
-    if (pointerEvent.cancelable) {
-      pointerEvent.preventDefault();
-    }
+  function move(event: PointerEvent) {
     const dims = container.getBoundingClientRect();
     const defaultView = container.ownerDocument.defaultView!;
     const offsetX = dims.left + defaultView.scrollX;
     const offsetY = dims.top + defaultView.scrollY;
-    const x = pointerEvent.pageX - offsetX;
-    const y = pointerEvent.pageY - offsetY;
+    const x = event.pageX - offsetX;
+    const y = event.pageY - offsetY;
 
     if (options?.onMove) {
       options.onMove(x, y);
     }
   }
 
-  function stop() {
-    document.removeEventListener('pointermove', move);
-    document.removeEventListener('pointerup', stop);
+  function stop(event: PointerEvent) {
+    if (event.cancelable) {
+      event.preventDefault();
+    }
+
+    window.removeEventListener('pointermove', move);
+    window.removeEventListener('pointerup', stop);
 
     if (options?.onStop) {
       options.onStop();
     }
   }
 
-  document.addEventListener('pointermove', move);
-  document.addEventListener('pointerup', stop);
+  window.addEventListener('pointermove', move);
+  window.addEventListener('pointerup', stop);
 
   // If an initial event is set, trigger the first drag immediately
   if (options?.initialEvent instanceof PointerEvent) {
