@@ -107,11 +107,6 @@ export default class SlSplitPanel extends ShoelaceElement {
       return;
     }
 
-    // Prevent text selection when dragging
-    if (event.cancelable) {
-      event.preventDefault();
-    }
-
     // @ts-ignore
     this.emit('sl-before-reposition');
     this.divider.setPointerCapture(event.pointerId);
@@ -158,7 +153,7 @@ export default class SlSplitPanel extends ShoelaceElement {
         // @ts-ignore
         this.emit('sl-after-reposition');
       },
-      initialEvent: event
+      // initialEvent: event
     });
   }
 

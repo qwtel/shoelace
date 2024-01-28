@@ -1,6 +1,6 @@
 interface DragOptions {
   /** Callback that runs as dragging occurs. */
-  onMove: (x: number, y: number) => void;
+  onMove: (x: number, y: number, event: PointerEvent) => void;
   /** Callback that runs when dragging stops. */
   onStop: () => void;
   /**
@@ -14,15 +14,15 @@ interface DragOptions {
 /** Begins listening for dragging. */
 export function drag(container: HTMLElement, options?: Partial<DragOptions>) {
   function move(event: PointerEvent) {
-    const dims = container.getBoundingClientRect();
-    const defaultView = container.ownerDocument.defaultView!;
+    const dims = container.getBoundingClientRect(); // Could this cause layout recalculation?
+    const defaultView = container.ownerDocument.defaultView!; // What if I use this inside a scroll container? iframes?
     const offsetX = dims.left + defaultView.scrollX;
     const offsetY = dims.top + defaultView.scrollY;
     const x = event.pageX - offsetX;
     const y = event.pageY - offsetY;
 
     if (options?.onMove) {
-      options.onMove(x, y);
+      options.onMove(x, y, event);
     }
   }
 
