@@ -212,6 +212,10 @@ export default class SlSelect extends ShoelaceElement implements ShoelaceFormCon
   connectedCallback() {
     super.connectedCallback();
 
+    // TODO: handle attr change?
+    const selected = this.getAllOptions().filter(x => x.selected);
+    if (selected.length) this.value = selected.length === 1 ? selected[0].value : selected.map(x => x.value);
+
     // Because this is a form control, it shouldn't be opened initially
     this.open = false;
   }

@@ -37,7 +37,7 @@ export default class SlOption extends ShoelaceElement {
   @query('.option__label') defaultSlot: HTMLSlotElement;
 
   @state() current = false; // the user has keyed into the option, but hasn't selected it yet (shows a highlight)
-  @state() selected = false; // the option is selected and has aria-selected="true"
+  @property({ type: Boolean, reflect: true }) selected = false; // the option is selected and has aria-selected="true"
   @state() hasHover = false; // we need this because Safari doesn't honor :hover styles while dragging
 
   /**
