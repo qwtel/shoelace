@@ -267,4 +267,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'sl-split-panel': SlSplitPanel;
   }
+  interface CustomAttributesMap {
+    'sl-split-panel': Partial<Pick<SlSplitPanel, 'position'|'vertical'|'disabled'>> & { 'position-in-pixels'?: string }
+  }
 }
