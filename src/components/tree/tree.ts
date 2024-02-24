@@ -9,4 +9,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'sl-tree': SlTree;
   }
+  interface CustomAttributesMap {
+    'sl-tree': Partial<Pick<SlTree, 'selection'>>
+  }
 }

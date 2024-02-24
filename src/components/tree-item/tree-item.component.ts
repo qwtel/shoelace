@@ -65,7 +65,7 @@ export default class SlTreeItem extends ShoelaceElement {
     'sl-spinner': SlSpinner
   };
 
-  static isTreeItem(node: Node): node is SlTreeItem {
+  static isTreeItem(node?: Node|null): node is SlTreeItem {
     return node instanceof Element && node.getAttribute('role') === 'treeitem';
   }
 
@@ -88,11 +88,11 @@ export default class SlTreeItem extends ShoelaceElement {
   /** Enables lazy loading behavior. */
   @property({ type: Boolean, reflect: true }) lazy = false;
 
-  @query('slot:not([name])') defaultSlot: HTMLSlotElement;
-  @query('slot[name=children]') childrenSlot: HTMLSlotElement;
-  @query('.tree-item__item') itemElement: HTMLDivElement;
-  @query('.tree-item__children') childrenContainer: HTMLDivElement;
-  @query('.tree-item__expand-button slot') expandButtonSlot: HTMLSlotElement;
+  @query('slot:not([name])') defaultSlot!: HTMLSlotElement;
+  @query('slot[name=children]') childrenSlot!: HTMLSlotElement;
+  @query('.tree-item__item') itemElement!: HTMLDivElement;
+  @query('.tree-item__children') childrenContainer!: HTMLDivElement;
+  @query('.tree-item__expand-button slot') expandButtonSlot!: HTMLSlotElement;
 
   connectedCallback() {
     super.connectedCallback();
@@ -132,7 +132,7 @@ export default class SlTreeItem extends ShoelaceElement {
   // Checks whether the item is nested into an item
   private isNestedItem(): boolean {
     const parent = this.parentElement;
-    return !!parent && SlTreeItem.isTreeItem(parent);
+    return SlTreeItem.isTreeItem(parent);
   }
 
   private handleChildrenSlotChange() {
@@ -215,7 +215,7 @@ export default class SlTreeItem extends ShoelaceElement {
   getChildrenItems({ includeDisabled = true }: { includeDisabled?: boolean } = {}): SlTreeItem[] {
     return this.childrenSlot
       ? ([...this.childrenSlot.assignedElements({ flatten: true })].filter(
-          (item: SlTreeItem) => SlTreeItem.isTreeItem(item) && (includeDisabled || !item.disabled)
+          (item) => SlTreeItem.isTreeItem(item) && (includeDisabled || !item.disabled)
         ) as SlTreeItem[])
       : [];
   }
@@ -239,13 +239,7 @@ export default class SlTreeItem extends ShoelaceElement {
       >
         <div
           class="tree-item__item"
-          part="
-            item
-            ${this.disabled ? 'item--disabled' : ''}
-            ${this.expanded ? 'item--expanded' : ''}
-            ${this.indeterminate ? 'item--indeterminate' : ''}
-            ${this.selected ? 'item--selected' : ''}
-          "
+          part="item${this.disabled ? ' item--disabled' : ''}${this.expanded ? ' item--expanded' : ''}${this.indeterminate ? ' item--indeterminate' : ''}${this.selected ? ' item--selected' : ''}"
         >
           <div class="tree-item__indentation" part="indentation"></div>
 
