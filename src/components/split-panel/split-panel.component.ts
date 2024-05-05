@@ -102,6 +102,7 @@ export default class SlSplitPanel extends ShoelaceElement {
   }
 
   private handleDrag(event: PointerEvent) {
+    if (event.button !== 0) return;
     const isRtl = this.localize.dir() === 'rtl';
 
     if (this.disabled) {
