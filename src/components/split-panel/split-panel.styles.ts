@@ -2,12 +2,11 @@ import { css } from 'lit';
 
 export default css`
   :host {
-    --divider-width: 4px;
-    --divider-hit-area: 12px;
     --min: 0%;
     --max: 100%;
 
     display: grid;
+    grid-template-rows: 100%;
   }
 
   .start,
@@ -16,7 +15,7 @@ export default css`
   }
 
   .divider {
-    flex: 0 0 var(--divider-width);
+    flex: 0 0 var(--divider-width, 4px);
     display: flex;
     position: relative;
     align-items: center;
@@ -49,8 +48,8 @@ export default css`
     content: '';
     position: absolute;
     height: 100%;
-    left: calc(var(--divider-hit-area) / -2 + var(--divider-width) / 2);
-    width: var(--divider-hit-area);
+    left: calc(var(--divider-hit-area, 12px) / -2 + var(--divider-width, 4px) / 2);
+    width: var(--divider-hit-area, 12px);
   }
 
   /* Vertical */
@@ -66,8 +65,8 @@ export default css`
     content: '';
     position: absolute;
     width: 100%;
-    top: calc(var(--divider-hit-area) / -2 + var(--divider-width) / 2);
-    height: var(--divider-hit-area);
+    top: calc(var(--divider-hit-area, 12px) / -2 + var(--divider-width, 4px) / 2);
+    height: var(--divider-hit-area, 12px);
   }
 
   @media (forced-colors: active) {
