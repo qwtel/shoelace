@@ -84,7 +84,7 @@ export default class ShoelaceElement extends LitElement {
       bubbles: true,
       cancelable: false,
       composed: true,
-      detail: {},
+      // detail: {},
       ...options
     });
 

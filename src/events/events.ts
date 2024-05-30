@@ -21,6 +21,7 @@ export type { SlInvalidEvent } from './sl-invalid.js';
 export type { SlLazyChangeEvent } from './sl-lazy-change.js';
 export type { SlLazyLoadEvent } from './sl-lazy-load.js';
 export type { SlLoadEvent } from './sl-load.js';
+export type { SlMoveEvent } from './sl-move.js';
 export type { SlMutationEvent } from './sl-mutation.js';
 export type { SlRemoveEvent } from './sl-remove.js';
 export type { SlRepositionEvent } from './sl-reposition.js';

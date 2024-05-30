@@ -101,6 +101,13 @@ export default class SlSplitPanel extends ShoelaceElement {
     return (value / this.size) * 100;
   }
 
+  private _eventDetail = { position: NaN, positionInPixels: NaN };
+  private get eventDetail() {
+    this._eventDetail.position = this.position;
+    this._eventDetail.positionInPixels = this.positionInPixels;
+    return this._eventDetail;
+  }
+
   private handleDrag(event: PointerEvent) {
     if (event.button !== 0) return;
 
@@ -110,8 +117,7 @@ export default class SlSplitPanel extends ShoelaceElement {
       return;
     }
 
-    // @ts-ignore
-    this.emit('sl-before-reposition');
+    this.emit('sl-before-move', { detail: this.eventDetail, bubbles: false });
     this.divider.setPointerCapture(event.pointerId);
 
     drag(this, {
@@ -153,8 +159,7 @@ export default class SlSplitPanel extends ShoelaceElement {
       },
       onStop: () => {
         this.divider.releasePointerCapture(event.pointerId);
-        // @ts-ignore
-        this.emit('sl-after-reposition');
+        this.emit('sl-after-move', { detail: this.eventDetail, bubbles: false });
       },
       // initialEvent: event
     });
@@ -214,6 +219,7 @@ export default class SlSplitPanel extends ShoelaceElement {
     this.cachedPositionInPixels = this.percentageToPixels(this.position);
     this.positionInPixels = this.percentageToPixels(this.position);
     this.emit('sl-reposition');
+    this.emit('sl-move', { detail: this.eventDetail, bubbles: false });
   }
 
   @watch('positionInPixels')
@@ -233,18 +239,22 @@ export default class SlSplitPanel extends ShoelaceElement {
     const primaryInner = `clamp(var(--min), ${this.position}% - var(--divider-width) / 2, var(--max))`;
     const primary = `clamp(0%, ${primaryInner}, calc(100% - var(--divider-width)))`;
     const secondary = 'auto';
+    // When the position is zero, don't make the divider take up space. This allows "closing" a panel.
+    const dividerWidth = this.position === 0 
+      ? 'min(var(--min), var(--divider-width))'
+      : 'var(--divider-width)'
 
     if (this.primary === 'end') {
       if (isRtl && !this.vertical) {
-        this.style[gridTemplate] = `${primary} var(--divider-width) ${secondary}`;
+        this.style[gridTemplate] = `${primary} ${dividerWidth} ${secondary}`;
       } else {
-        this.style[gridTemplate] = `${secondary} var(--divider-width) ${primary}`;
+        this.style[gridTemplate] = `${secondary} ${dividerWidth} ${primary}`;
       }
     } else {
       if (isRtl && !this.vertical) {
-        this.style[gridTemplate] = `${secondary} var(--divider-width) ${primary}`;
+        this.style[gridTemplate] = `${secondary} ${dividerWidth} ${primary}`;
       } else {
-        this.style[gridTemplate] = `${primary} var(--divider-width) ${secondary}`;
+        this.style[gridTemplate] = `${primary} ${dividerWidth} ${secondary}`;
       }
     }
 
@@ -279,6 +289,6 @@ declare global {
     'sl-split-panel': SlSplitPanel;
   }
   interface CustomAttributesMap {
-    'sl-split-panel': Partial<Pick<SlSplitPanel, 'position'|'vertical'|'disabled'>> & { 'position-in-pixels'?: string }
+    'sl-split-panel': Partial<Pick<SlSplitPanel, 'position'|'vertical'|'disabled'>> & { 'position-in-pixels'?: number }
   }
 }
