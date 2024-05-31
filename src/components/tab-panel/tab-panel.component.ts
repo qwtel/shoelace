@@ -59,6 +59,6 @@ export default class SlTabPanel extends ShoelaceElement {
 
 declare global {
   interface CustomAttributesMap {
-    'sl-tab-panel': Partial<Pick<SlTabPanel, 'name'|'active'>>
+    'sl-tab-panel': PickAttrs<SlTabPanel, 'name'|'active'>
   }
 }

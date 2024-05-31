@@ -10,6 +10,6 @@ declare global {
     'sl-icon': SlIcon;
   }
   interface CustomAttributesMap {
-    'sl-icon': Partial<Pick<SlIcon, 'name'>>
+    'sl-icon': PickAttrs<SlIcon, 'name'>
   }
 }

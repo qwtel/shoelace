@@ -10,6 +10,6 @@ declare global {
     'sl-tree-item': SlTreeItem;
   }
   interface CustomAttributesMap {
-    'sl-tree-item': Partial<Pick<SlTreeItem, 'selected'|'expanded'|'disabled'|'lazy'>>
+    'sl-tree-item': PickAttrs<SlTreeItem, 'selected'|'expanded'|'disabled'|'lazy'>
   }
 }

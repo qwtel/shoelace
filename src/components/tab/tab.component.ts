@@ -120,6 +120,6 @@ declare global {
     'sl-tab': SlTab;
   }
   interface CustomAttributesMap {
-    'sl-tab': Partial<Pick<SlTab, 'panel'|'active'|'closable'|'disabled'>>
+    'sl-tab': PickAttrs<SlTab, 'panel'|'active'|'closable'|'disabled'>
   }
 }

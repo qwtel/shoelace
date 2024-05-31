@@ -36,3 +36,11 @@ declare interface Window {
   CloseWatcher?: CloseWatcher;
 }
 /* eslint-enable */
+
+type CamelToDashCase<T extends string, P extends string = ""> = string extends T ? string :
+  T extends `${infer C0}${infer R}` ?
+  CamelToDashCase<R, `${P}${C0 extends Lowercase<C0> ? "" : "-"}${Lowercase<C0>}`> : P
+
+type CamelToDash<T> = { [P in keyof T as CamelToDashCase<P & string>]: T[P] }
+
+type PickAttrs<T, K extends keyof T> = Partial<CamelToDash<Pick<T, K>>>

@@ -289,6 +289,6 @@ declare global {
     'sl-split-panel': SlSplitPanel;
   }
   interface CustomAttributesMap {
-    'sl-split-panel': Partial<Pick<SlSplitPanel, 'position'|'vertical'|'disabled'>> & { 'position-in-pixels'?: number }
+    'sl-split-panel': PickAttrs<SlSplitPanel, 'position'|'vertical'|'disabled'|'positionInPixels'|'primary'|'snap'|'snapThreshold'>
   }
 }

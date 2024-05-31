@@ -434,4 +434,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'sl-tab-group': SlTabGroup;
   }
+  interface CustomAttributesMap {
+    'sl-tab-group': PickAttrs<SlTabGroup, "placement"|"activation"|"noScrollControls">
+  }
 }
