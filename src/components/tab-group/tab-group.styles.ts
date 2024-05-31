@@ -6,12 +6,16 @@ export default css`
     --track-color: var(--sl-color-neutral-200);
     --track-width: 2px;
 
-    display: block;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .tab-group {
     display: flex;
     border-radius: 0;
+    flex: 1;
+    overflow: hidden;
   }
 
   .tab-group__tabs {
@@ -32,8 +36,10 @@ export default css`
   }
 
   .tab-group__body {
-    display: block;
-    overflow: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden
   }
 
   .tab-group__scroll-button {

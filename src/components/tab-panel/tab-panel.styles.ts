@@ -1,18 +1,7 @@
 import { css } from 'lit';
 
 export default css`
-  :host {
-    --padding: 0;
-
+  :host(:not([active])) {
     display: none;
-  }
-
-  :host([active]) {
-    display: block;
-  }
-
-  .tab-panel {
-    display: block;
-    padding: var(--padding);
   }
 `;

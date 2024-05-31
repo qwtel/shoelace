@@ -119,4 +119,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'sl-tab': SlTab;
   }
+  interface CustomAttributesMap {
+    'sl-tab': Partial<Pick<SlTab, 'panel'|'active'|'closable'|'disabled'>>
+  }
 }
