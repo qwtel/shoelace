@@ -9,4 +9,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'sl-format-bytes': SlFormatBytes;
   }
+  interface CustomAttributesMap {
+    'sl-format-bytes': PickAttrs<SlFormatBytes, 'value'|'unit'|'display'>;
+  }
 }

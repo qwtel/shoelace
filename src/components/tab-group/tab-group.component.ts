@@ -120,7 +120,7 @@ export default class SlTabGroup extends ShoelaceElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.mutationObserver.disconnect();
-    this.resizeObserver.unobserve(this.nav);
+    this.nav && this.resizeObserver.unobserve(this.nav);
   }
 
   private getAllTabs(options: { includeDisabled: boolean } = { includeDisabled: true }) {
