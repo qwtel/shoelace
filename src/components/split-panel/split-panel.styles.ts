@@ -25,6 +25,8 @@ export default css`
     background-color: var(--sl-color-neutral-200);
     color: var(--sl-color-neutral-900);
     z-index: 1;
+    touch-action: none;
+    pointer-events: auto;
   }
 
   .divider:focus {
