@@ -14,8 +14,6 @@ interface DragOptions {
 /** Begins listening for dragging. */
 export function drag(container: HTMLElement, options?: Partial<DragOptions>) {
   function move(pointerEvent: PointerEvent) {
-    if (pointerEvent.buttons === 0) return;
-
     const dims = container.getBoundingClientRect(); // Could this cause layout recalculation?
     const defaultView = container.ownerDocument.defaultView!; // What if I use this inside a scroll container? iframes?
     const offsetX = dims.left + defaultView.scrollX;
