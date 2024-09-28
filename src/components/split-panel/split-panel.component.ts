@@ -101,15 +101,15 @@ export default class SlSplitPanel extends ShoelaceElement {
     return (value / this.size) * 100;
   }
 
-  private _eventDetail = { position: NaN, positionInPixels: NaN };
+  #eventDetail = { position: NaN, positionInPixels: NaN };
   private get eventDetail() {
-    this._eventDetail.position = this.position;
-    this._eventDetail.positionInPixels = this.positionInPixels;
-    return this._eventDetail;
+    this.#eventDetail.position = this.position;
+    this.#eventDetail.positionInPixels = this.positionInPixels;
+    return this.#eventDetail;
   }
 
   private handleDrag(event: PointerEvent) {
-    if (event.button !== 0) return;
+    if (event.button === 0) return;
 
     const isRtl = this.matches(':dir(rtl)');
 
@@ -118,6 +118,8 @@ export default class SlSplitPanel extends ShoelaceElement {
     }
 
     this.emit('sl-before-move', { detail: this.eventDetail, bubbles: false });
+
+    // Prevent text selection when dragging
     this.divider.setPointerCapture(event.pointerId);
 
     drag(this, {
@@ -161,7 +163,7 @@ export default class SlSplitPanel extends ShoelaceElement {
         this.divider.releasePointerCapture(event.pointerId);
         this.emit('sl-after-move', { detail: this.eventDetail, bubbles: false });
       },
-      // initialEvent: event
+      initialEvent: event
     });
   }
 

@@ -14,20 +14,17 @@ interface DragOptions {
 /** Begins listening for dragging. */
 export function drag(container: HTMLElement, options?: Partial<DragOptions>) {
   function move(pointerEvent: PointerEvent) {
-    if (pointerEvent.buttons > 0) {
-      const dims = container.getBoundingClientRect(); // Could this cause layout recalculation?
-      const defaultView = container.ownerDocument.defaultView!; // What if I use this inside a scroll container? iframes?
-      const offsetX = dims.left + defaultView.scrollX;
-      const offsetY = dims.top + defaultView.scrollY;
-      const x = pointerEvent.pageX - offsetX;
-      const y = pointerEvent.pageY - offsetY;
+    if (pointerEvent.buttons === 0) return;
 
-      if (options?.onMove) {
-        options.onMove(x, y, pointerEvent);
-      }
-    } else {
-      // Something weird happened: Move listener still active but button no longer pressed. Trigger stop manually.
-      stop(pointerEvent)
+    const dims = container.getBoundingClientRect(); // Could this cause layout recalculation?
+    const defaultView = container.ownerDocument.defaultView!; // What if I use this inside a scroll container? iframes?
+    const offsetX = dims.left + defaultView.scrollX;
+    const offsetY = dims.top + defaultView.scrollY;
+    const x = pointerEvent.pageX - offsetX;
+    const y = pointerEvent.pageY - offsetY;
+
+    if (options?.onMove) {
+      options.onMove(x, y, pointerEvent);
     }
   }
 
