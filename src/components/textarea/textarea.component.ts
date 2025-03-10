@@ -201,8 +201,6 @@ export default class SlTextarea extends ShoelaceElement implements ShoelaceFormC
       this.sizeAdjuster.style.height = `${this.input.clientHeight}px`;
       this.input.style.height = 'auto';
       this.input.style.height = `${this.input.scrollHeight}px`;
-    } else {
-      this.input.style.height = '';
     }
   }
 
