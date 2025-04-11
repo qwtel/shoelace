@@ -10,6 +10,7 @@ interface UnitConfig {
 }
 
 const availableUnits: UnitConfig[] = [
+  { max: 46000, value: 1000, unit: 'second' }, // max 46 seconds
   { max: 2760000, value: 60000, unit: 'minute' }, // max 46 minutes
   { max: 72000000, value: 3600000, unit: 'hour' }, // max 20 hours
   { max: 518400000, value: 86400000, unit: 'day' }, // max 6 days
@@ -109,4 +110,13 @@ function getTimeUntilNextUnit(unit: 'second' | 'minute' | 'hour' | 'day') {
   const units = { second: 1000, minute: 60000, hour: 3600000, day: 86400000 };
   const value = units[unit];
   return value - (Date.now() % value);
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-relative-time': SlRelativeTime;
+  }
+  interface CustomAttributesMap {
+    'sl-relative-time': PickAttrs<SlRelativeTime, 'date' | 'format' | 'numeric' | 'sync'>;
+  }
 }
