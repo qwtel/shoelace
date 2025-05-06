@@ -46,7 +46,7 @@ export default class SlAlert extends ShoelaceElement {
   private autoHideTimeout: number;
   private remainingTimeInterval: number;
   private countdownAnimation?: Animation;
-  private readonly hasSlotController = new HasSlotController(this, 'icon', 'suffix');
+  private readonly hasSlotController = new HasSlotController(this, 'icon', 'suffix', 'close-button');
   private readonly localize = new LocalizeController(this);
 
   private static currentToastStack: HTMLDivElement;
@@ -265,7 +265,18 @@ export default class SlAlert extends ShoelaceElement {
         </div>
 
         ${this.closable
-          ? html`
+          ? this.hasSlotController.test('close-button') 
+            ? html`
+              <div
+                part="close-button"
+                class="alert__close-button"
+                title=${this.localize.term('close')}
+                @click=${this.handleCloseClick}
+              >
+                <slot name="close-button"></slot>
+              </div>
+            `
+            : html`
               <sl-icon-button
                 part="close-button"
                 exportparts="base:close-button__base"
@@ -278,7 +289,9 @@ export default class SlAlert extends ShoelaceElement {
             `
           : ''}
 
-        <div role="timer" class="alert__timer">${this.remainingTime}</div>
+        ${this.remainingTime !== Infinity 
+          ? html`<div role="timer" class="alert__timer">${this.remainingTime}</div>` 
+          : ''}
 
         ${this.countdown
           ? html`
@@ -312,3 +325,12 @@ setDefaultAnimation('alert.hide', {
   ],
   options: { duration: 250, easing: 'ease' }
 });
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-alert': SlAlert;
+  }
+  interface CustomAttributesMap {
+    'sl-alert': PickAttrs<SlAlert, 'open' | 'closable' | 'variant' | 'duration'>;
+  }
+}
