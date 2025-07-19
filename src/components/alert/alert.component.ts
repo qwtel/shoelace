@@ -203,11 +203,11 @@ export default class SlAlert extends ShoelaceElement {
    * dismissed, it will be removed from the DOM completely. By storing a reference to the alert, you can reuse it by
    * calling this method again. The returned promise will resolve after the alert is hidden.
    */
-  async toast() {
+  async toast(parentElement?: HTMLElement) {
     return new Promise<void>(resolve => {
       this.handleCountdownChange();
       if (SlAlert.toastStack.parentElement === null) {
-        document.body.append(SlAlert.toastStack);
+        (parentElement || document.body).append(SlAlert.toastStack);
       }
 
       SlAlert.toastStack.appendChild(this);
