@@ -9,4 +9,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'sl-button': SlButton;
   }
+  interface CustomAttributesMap {
+    'sl-button': PickAttrs<SlButton, 'variant' | 'size' | 'caret' | 'disabled' | 'loading' | 'outline' | 'pill' | 'circle'>
+  }
 }

@@ -9,4 +9,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'sl-progress-bar': SlProgressBar;
   }
+  interface CustomAttributesMap {
+    'sl-progress-bar': PickAttrs<SlProgressBar, 'value' | 'indeterminate'>;
+  }
 }
