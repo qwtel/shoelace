@@ -79,6 +79,9 @@ export default class SlSplitPanel extends ShoelaceElement {
   /** Disables resizing. Note that the position may still change as a result of resizing the host element. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
+  /** If true, the start panel will maintain its width when the host element is resized. */
+  @property({ type: Boolean, reflect: true, attribute: 'maintain-start-width' }) maintainStartWidth = false;
+
   /**
    * If no primary panel is designated, both panels will resize proportionally when the host element is resized. If a
    * primary panel is designated, it will maintain its size and the other panel will grow or shrink as needed when the
@@ -294,6 +297,18 @@ export default class SlSplitPanel extends ShoelaceElement {
       this.position = this.pixelsToPercentage(this.positionInPixels);
     }
 
+    // Special case: when maintain-start-width is set, we want to maintain the start panel width
+    // This allows the start panel (main content) to maintain its width while
+    // the end panel (sidebar) resizes proportionally
+    if (this.maintainStartWidth) {
+      // cachedPositionInPixels represents the start panel width
+      const startPanelWidth = this.cachedPositionInPixels;
+      // Convert start panel width to percentage
+      const newPosition = this.pixelsToPercentage(startPanelWidth);
+      this.position = newPosition;
+      return;
+    }
+
     // Resize when a primary panel is set
     if (this.primary) {
       this.position = this.pixelsToPercentage(this.cachedPositionInPixels);
@@ -377,6 +392,6 @@ declare global {
     'sl-split-panel': SlSplitPanel;
   }
   interface CustomAttributesMap {
-    'sl-split-panel': PickAttrs<SlSplitPanel, 'position'|'vertical'|'disabled'|'positionInPixels'|'primary'|'snap'|'snapThreshold'>
+    'sl-split-panel': PickAttrs<SlSplitPanel, 'position'|'vertical'|'disabled'|'positionInPixels'|'primary'|'snap'|'snapThreshold'|'maintainStartWidth'>
   }
 }
