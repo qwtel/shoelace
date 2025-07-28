@@ -38,10 +38,6 @@ export default css`
     padding-inline-start: var(--sl-spacing-large);
   }
 
-  .alert--has-countdown {
-    border-bottom: none;
-  }
-
   .alert--primary {
     border-top-color: var(--sl-color-primary-600);
   }
@@ -82,6 +78,10 @@ export default css`
     color: var(--sl-color-danger-600);
   }
 
+  .alert--has-countdown {
+    border-top: none;
+  }
+
   .alert__message {
     flex: 1 1 auto;
     display: block;
@@ -100,7 +100,7 @@ export default css`
 
   .alert__countdown {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     width: 100%;
     height: calc(var(--sl-panel-border-width) * 3);

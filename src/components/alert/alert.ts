@@ -10,6 +10,6 @@ declare global {
     'sl-alert': SlAlert;
   }
   interface CustomAttributesMap {
-    'sl-alert': PickAttrs<SlAlert, 'open' | 'closable' | 'variant' | 'duration'>;
+    'sl-alert': PickAttrs<SlAlert, 'open' | 'closable' | 'variant' | 'duration' | 'countdown'>;
   }
 }
